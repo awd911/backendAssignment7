@@ -1,8 +1,10 @@
 package com.example.getmesocialservice;
 
 import com.example.getmesocialservice.model.User;
+import com.example.getmesocialservice.model.userInfo;
 import com.example.getmesocialservice.service.HomeService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class HomeController {
 
+    @Autowired
+    private HomeService homeService;
+
     @GetMapping("/")
     public String index(Model model) {
 
-        model.addAttribute("User", new User());
+        model.addAttribute("userInfo", new userInfo());
         return "index.html";
     }
 
@@ -31,12 +36,13 @@ public class HomeController {
 
         return "contact";
     }
+
     @PostMapping("/contact")
-    public String userSubmit (@ModelAttribute User user, Model model){
+    public String userSubmit (@ModelAttribute userInfo userinfo , Model model){
 
-        System.out.println(user);
+        System.out.println(userinfo.getUserName());
 
-        model.addAttribute("users",user);
-        return "result";
+        model.addAttribute("users",homeService.getUsers());
+        return "contact.html";
     }
 }
