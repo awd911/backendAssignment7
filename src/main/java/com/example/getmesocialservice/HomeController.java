@@ -40,8 +40,6 @@ public class HomeController {
     @PostMapping("/contact")
     public String userSubmit (@ModelAttribute userInfo userinfo , Model model){
 
-        System.out.println(userinfo.getUserName());
-
         model.addAttribute("userinfo",userinfo);
         return "user";
     }
